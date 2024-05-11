@@ -13,7 +13,7 @@ app.use(express.json());
 
 //mongodb connection
 
-console.log(process.env.DB_USER)
+//console.log(process.env.DB_USER)
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.mhvsuxa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
