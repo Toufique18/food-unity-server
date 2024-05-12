@@ -58,6 +58,44 @@ async function run() {
             res.send(result)
         })
 
+        //available food
+        app.get("/available_food", async (req, res)=> {
+            // res.header("Access-Control-Allow-Origin", "https://tourism-management-syste-24e9b.web.app"); // Replace with your client origin
+      
+              const coursor = availableFood.find();
+              const result = await coursor.toArray()
+              res.send(result)
+          })
+
+          //feature food
+          app.get("/food_info", async (req, res)=> {
+            // res.header("Access-Control-Allow-Origin", "https://tourism-management-syste-24e9b.web.app"); // Replace with your client origin
+      
+              const coursor = foodCollection.find();
+              const result = await coursor.toArray()
+              res.send(result)
+          })
+
+          //manage my food
+          app.get("/food_info/:email", async (req, res)=> {
+            // res.header("Access-Control-Allow-Origin", "https://tourism-management-syste-24e9b.web.app"); 
+      
+              //console.log(req.params.userEmail);
+              const result = await foodCollection.find({email:req.params.email}).toArray();
+              //console.log(result)
+              res.send(result)
+              
+          })
+
+          app.delete("/food_info/:id", async (req, res) => {
+            // res.header("Access-Control-Allow-Origin", "https://tourism-management-syste-24e9b.web.app"); 
+      
+              const id = req.params.id;
+              const query = {_id: new ObjectId(id)}
+              const result = await foodCollection.deleteOne(query);
+              res.send(result);
+          })
+
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
