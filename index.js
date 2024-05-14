@@ -96,6 +96,35 @@ async function run() {
               res.send(result);
           })
 
+          //update
+          app.put("/food_info/:id", async (req, res) => {
+            // res.header("Access-Control-Allow-Origin", "https://tourism-management-syste-24e9b.web.app"); // Replace with your client origin
+      
+              const id = req.params.id;
+              const filter = {_id: new ObjectId(id)}
+              const options = {upsert: true}
+              const updatedInfo = req.body
+              const Infor = {
+                  $set: {
+                      imageUrl: updatedInfo.imageUrl, 
+                      foodName: updatedInfo.foodName, 
+                      quantity: updatedInfo.quantity, 
+                      location: updatedInfo.location, 
+                      location: updatedInfo.location, 
+                      time: updatedInfo.time, 
+                      notes: updatedInfo.notes, 
+                      donatorName: updatedInfo.donatorName, 
+                      email: updatedInfo.email, 
+                      donatorImage: updatedInfo.donatorImage, 
+                      status: updatedInfo.status
+                  }
+              }
+          
+              const result = await foodCollection.updateOne(filter, Infor, options);
+              res.send(result)
+          
+          })
+
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
